@@ -56,7 +56,7 @@ function setUpMap() {
 function mapProjChanged() {
     // Show/hide controls based on zoom
     let zoomlevel = map.getZoom();
-    if (zoomlevel > 10) {
+    if (zoomlevel > MIN_ZOOM_TO_ALLOW_QUERY) {
         $('#zoomin').hide();
         $('#zoomok').show();
     } else {
