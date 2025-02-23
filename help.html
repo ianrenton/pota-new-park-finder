@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>About POTA New Park Finder</title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<div style="max-width: 50em; margin: auto;">
+    <h1>About POTA New Park Finder</h1>
+    <p>"POTA New Park Finder" is a utility to help Amateur Radio operators participating in the <a href="https://parksontheair.com/" target="_blank">Parks on the Air (POTA)</a> programme find parks that they have not yet operated from ("activated") or have not been activated at all.</p>
+    <h2>Usage</h2>
+    <p>To use the software, start by entering your callsign at the top left. This allows the software to distinguish between your activations, and other people's. Entering this is optional, so if you don't have a callsign or just want to see which parks have been activated in general, you can leave it empty.</p>
+    <p>Next, position your view where in the world you are interested in. If you allowed geolocation in your browser, this should hopefully already be fairly close to you, but if not, pan the map as necessary. The blue "home" marker represents the software's best guess at your location; if it's wrong and it annoys you, you can drag it to wherever you really are, and the software will remember.</p>
+    <p>At the top left, there may now be a "Click here to find parks!" button. If not, and there is instead a prompt telling you to zoom in, you will need to zoom in (scroll wheel or pinch) until the button appears. This is to avoid overloading the POTA API with a large number of requests for park statuses over a very wide area.</p>
+    <p>Once the button is available, clicking it will cause the software to query the POTA API, and if everything is working you should start to see markers appear on your screen. (If you don't, but the status shows "OK", there may just not be any parks in your view. If the status shows "Error", the POTA API may be offline.)</p>
+    <p>Markers initially appear grey, showing that the software knows a park is there, but has not yet queried its status. Over the next few seconds, grey markers should be replaced by coloured ones. The colours indicate the park's status as follows:</p>
+    <ul><li>Red markers show parks that have never been activated</li>
+        <li>Yellow markers show pars that have been activated by other people, but not by you</li>
+        <li>Green markers show pars that you have activated</li></ul>
+    <p>You can click on any marker to see its reference, name, and information about its activation status.</p>
+    <h2>Notes</h2>
+    <p>This software relies on the POTA API to work. This is an "unofficial" and undocumented API, so it is subject to change without warning. If you encounter problems with the POTA New Park Finder, please <a href="mailto:ian@ianrenton.com">send me an email</a>.</p>
+    <p>API functions are publicly available due to the goodwill of the POTA volunteer developer team. Please try not to make them regret this decision by hammering the API with large numbers of requests.</p>
+    <p>Always do your own research to find out if it is possible and legal to activate a park, regardless of whether it appears within this software or on the POTA website, and abide by the POTA rules.</p>
+    <h2>Credits & Motivation</h2>
+    <p>It was written by <a href="https://ianrenton.com" target="_blank">Ian Renton</a>, callsign MØTRT. I just wanted an easy way to visually keep track of which local parks were new and which I hadn't activated yet, when a large number of local parks were added to the system in 2024-2025.</p>
+    <p>It is based on a couple of my previous Python projects, <a href="https://github.com/ianrenton/newparks" target="_blank">POTA Unactivated Park Finder</a> (which finds all unactivated parks globally, and produces a KML file) and <a href="https://github.com/ianrenton/pota-local-progress" target="_blank">POTA Local Parks Progress</a>, which shows a command-line tabulated list of your nearest parks and their status.</p>
+    <h2>Source Code & Licence</h2>
+    <p>POTA New Park Finder is open source software released into the public domain. <a href="https://github.com/ianrenton/pota-new-park-finder" target="_blank">You can view the source code and contribute to the project here.</a></p>
+    <h2>Privacy</h2>
+    <p>The site uses no trackers or cookies. Your callsign, last viewed map position, and your home marker position (from geolocation or because you moved it manually) are all stored locally on your computer, and are not uploaded anywhere. You can clear them from your browser's "Local Storage" settings.</p>
+</div>
+</body>
+</html>
