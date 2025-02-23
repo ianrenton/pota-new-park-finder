@@ -7,8 +7,13 @@ function setUpMap() {
     map = L.map('map', {
         zoomControl: false,
         minZoom: 2,
-        maxZoom: 14
+        maxZoom: MAX_ZOOM
     });
+
+    // Manually add zoom control so we can put it in the top right
+    L.control.zoom({
+        position: 'topright'
+    }).addTo(map);
 
     // Add basemap
     backgroundTileLayer = L.tileLayer.provider(BASEMAP, {
