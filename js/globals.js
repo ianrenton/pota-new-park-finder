@@ -9,7 +9,8 @@ const GEOLOCATION_API_URL = "https://api.hackertarget.com/geoip/?output=json&q="
 const BASEMAP = "CartoDB.Voyager";
 const BASEMAP_OPACITY = 1.0;
 const MAX_ZOOM = 17;
-const MIN_ZOOM_TO_ALLOW_QUERY = 9;
+const MIN_ZOOM_TO_ALLOW_QUERY = 7;
+const API_CALL_RATE_LIMIT_MILLIS = 100;
 
 
 /////////////////////////////
