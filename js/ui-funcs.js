@@ -3,6 +3,6 @@
 /////////////////////////////
 
 $("#myCallsign").change(function () {
-    myCallsign = $(this).val();
+    myCallsign = $(this).val().trim();
     localStorage.setItem('myCallsign', JSON.stringify(myCallsign));
 });
