@@ -36,7 +36,14 @@ function setUpMap() {
     });
 
     // Display a default view.
-    if (lastViewCentre != null) {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has("lat") && urlParams.has("lon") && urlParams.has("zoom")) {
+        // We have URL parameters defining a location, so go to it.
+        // Also call "map proj changed" which will enable/disable the button as necessary, and set "already
+        // moved map" so that when geolocation happens, it doesn't steal the view.
+        map.setView([urlParams.get("lat"), urlParams.get("lon")], urlParams.get("zoom"));
+        mapProjChanged();
+    } else if (lastViewCentre != null) {
         // We have a persisted last view from the previous time the user visited the website, go to it.
         // Also call "map proj changed" which will enable/disable the button as necessary, and set "already
         // moved map" so that when geolocation happens, it doesn't steal the view.
@@ -74,6 +81,9 @@ function mapProjChanged() {
     lastViewZoom = zoomlevel;
     localStorage.setItem('lastViewCentre', JSON.stringify(lastViewCentre));
     localStorage.setItem('lastViewZoom', JSON.stringify(lastViewZoom));
+
+    // Update address bar to create a permalink
+    pushURLToAddressBar();
 
     // Record that the projection changed. If this happens before initial "zoom to my location",
     // we ignore that to avoid moving the user's view.

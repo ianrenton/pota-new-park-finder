@@ -2,8 +2,9 @@
 //   API CALL FUNCTIONS    //
 /////////////////////////////
 
-// Main method to kick of querying the POTA API when the button is clicked.
-$("#run").click(function () {
+// Main method to kick of querying the POTA API when the button is clicked or automatically
+// on load.
+function callAPI() {
     // Clear existing data
     parks.clear();
     parks.length = 0;
@@ -24,6 +25,11 @@ $("#run").click(function () {
             $("span#potaApiStatus").html("<i class='fa-solid fa-triangle-exclamation'></i> Error!");
         }
     });
+}
+
+// Bind this action to the run button
+$("#run").click(function () {
+    callAPI();
 });
 
 
