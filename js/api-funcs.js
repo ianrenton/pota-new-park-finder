@@ -2,8 +2,9 @@
 //   API CALL FUNCTIONS    //
 /////////////////////////////
 
-// Main method to kick of querying the POTA API when the button is clicked.
-$("#run").click(function () {
+// Main method to kick of querying the POTA API when the button is clicked or automatically
+// on load.
+function callAPI() {
     // Clear existing data
     parks.clear();
     parks.length = 0;
@@ -24,6 +25,11 @@ $("#run").click(function () {
             $("span#potaApiStatus").html("<i class='fa-solid fa-triangle-exclamation'></i> Error!");
         }
     });
+}
+
+// Bind this action to the run button
+$("#run").click(function () {
+    callAPI();
 });
 
 
@@ -35,6 +41,7 @@ $("#run").click(function () {
 function handlePOTAData(result, bounds) {
     // Add the retrieved parks to the list
     let parkUpdate = objectToMap(result);
+    let i = 0;
     parkUpdate.get("features").forEach(park => {
         const ref = park.properties.reference;
         const newPark = {
@@ -59,17 +66,20 @@ function handlePOTAData(result, bounds) {
             parks.set(ref, newPark);
 
             // Now we need to fetch the park's list of activators to see if it's ever been activated, and activated by us. We do this
-            // asynchronously
-            $.ajax({
-                url: POTA_ACTIVATIONS_URL + ref + "?count=all",
-                dataType: 'json',
-                timeout: 10000,
-                success: async function (result) {
-                    if (result != null) {
-                        updateParkStatus(ref, result);
+            // asynchronously, with a delay to avoid overloading the API. The net effect is that markers will colour in slowly over the
+            // course of a few seconds.
+            setTimeout(function() {
+                $.ajax({
+                    url: POTA_ACTIVATIONS_URL + ref + "?count=all",
+                    dataType: 'json',
+                    timeout: 10000,
+                    success: async function (result) {
+                        if (result != null) {
+                            updateParkStatus(ref, result);
+                        }
                     }
-                }
-            });
+                });
+            }, i++ * API_CALL_RATE_LIMIT_MILLIS);
         }
     });
 }
@@ -88,7 +98,6 @@ function updateParkStatus(uid, apiResponse) {
             updatePark.lastActivationCallsign = activations.get("0").activeCallsign;
             let actxByMe = 0;
             activations.forEach(activation => {
-                console.log(activation);
                 if (myCallsign === activation.activeCallsign) {
                     updatePark.activatedByMe = true;
                     actxByMe = actxByMe + 1;
