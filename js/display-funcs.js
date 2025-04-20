@@ -63,6 +63,8 @@ function getTooltipText(park) {
             ttt = ttt + "<br/>Activated " + park.activationCount + " time(s), most recently by " + park.lastActivationCallsign + " on " + park.lastActivationDate.format('D MMM YYYY') + ".";
             if (park.activatedByMe) {
                 ttt = ttt + "<br/>You have activated " + park.activationByMeCount + " time(s), most recently on " + park.lastActivationByMeDate.format('D MMM YYYY') + ".";
+            } else if (park.failedActivationsByMe) {
+                ttt = ttt + "<br/>You have attempted activating this park, but not yet succeeded.";
             }
         } else {
             ttt = ttt + "<br/>This park has never been activated.";

@@ -17,6 +17,8 @@ function getIcon(park) {
     if (park.activationChecked) {
         if (park.activatedByMe) {
             color = 'green';
+        } else if (park.failedActivationsByMe) {
+            color = 'peru';
         } else if (park.activated) {
             color = 'yellow';
         } else {

@@ -99,10 +99,14 @@ function updateParkStatus(uid, apiResponse) {
             let actxByMe = 0;
             activations.forEach(activation => {
                 if (myCallsign === activation.activeCallsign) {
-                    updatePark.activatedByMe = true;
-                    actxByMe = actxByMe + 1;
-                    if (updatePark.lastActivationByMeDate == null) {
-                        updatePark.lastActivationByMeDate = moment.utc(activation.qso_date, "YYYYMMDD");
+                    if (activation.totalQSOs >= 10) {
+                        updatePark.activatedByMe = true;
+                        actxByMe = actxByMe + 1;
+                        if (updatePark.lastActivationByMeDate == null) {
+                            updatePark.lastActivationByMeDate = moment.utc(activation.qso_date, "YYYYMMDD");
+                        }
+                    } else {
+                        updatePark.failedActivationsByMe = true;
                     }
                 }
             });
